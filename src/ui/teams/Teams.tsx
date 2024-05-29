@@ -14,7 +14,7 @@ export const Teams = () => {
     }, [discipline, dispatch]);
 
     const teams = useSelector<AppStoreType, TeamsType[]>((state) => {
-        const disciplineData = state.disciplines.find(d => d.url.toLowerCase() === discipline);
+        const disciplineData = state.disciplines.find(d => d.name.toLowerCase() === discipline);
         return disciplineData ? disciplineData.teams : [];
     });
 

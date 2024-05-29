@@ -95,14 +95,12 @@ export const disciplineReducer = (state: LeaguesType[] = initialState, action: A
                     name: "Chicago Bulls",
                     conference: "Eastern",
                     division: "Central"
-
                 },
                 {
                     id: 2,
                     name: "Boston Celtics",
                     conference: "Eastern",
                     division: "Atlantic"
-
                 },
                 {
                     id: 3,
