@@ -1,4 +1,17 @@
-//.main {
-//  height: 700px;
-//  border: 1px solid rgba(13, 80, 226, 0.94);
-//}
+.main {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  grid-auto-rows: auto;
+  padding: 20px 10px;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-items: center;
+
+  a {
+    max-width: 365px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+}

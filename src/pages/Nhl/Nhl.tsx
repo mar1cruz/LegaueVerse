@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const Dota = () => {
+export const Nhl = () => {
     return (
         <div>
-            Dota
+            NHL
         </div>
     );
 };

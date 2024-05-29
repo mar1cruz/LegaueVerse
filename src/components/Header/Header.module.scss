@@ -1,4 +1,42 @@
 .header {
-  height: 100px;
   border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__body {
+  max-width: 300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+
+  background-color: #009def;
+}
+
+.navigate {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.link {
+  position: relative;
+  padding-bottom: 24px;
+  color: black;
+}
+
+.active:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border: 1px solid black;
+  width: 100%;
+}
+
+.logo {
+  height: 60px;
 }
