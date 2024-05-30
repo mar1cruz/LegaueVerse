@@ -10,10 +10,10 @@ import axios from "axios";
 export const Main = () => {
     const disciplines = useSelector<AppStoreType, LeaguesType[]>((state) => state.disciplines)
 
-    // useEffect(() => {
-    //     axios.get('nba/teams').then(res => console.log(res.data))
-    //         .catch(err => console.log(err));
-    // }, []);
+    useEffect(() => {
+        axios.get('nba/teams').then(res => console.log(res.data))
+            .catch(err => console.log(err));
+    }, []);
 
     return (
         <div className={st.main}>
