@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {setTeamAC, TeamsType} from "../../store/leagues-reducer";
 import {AppStoreType} from "../../store/store";
-import {Team} from "../team/Team";
+import styles from './Teams.module.scss'
 
 export const Teams = () => {
     const {discipline} = useParams<{ discipline: string }>();
@@ -20,17 +20,39 @@ export const Teams = () => {
 
     if (!teams.length) return <div>Loading...</div>;
 
-    const copyTeams: TeamsType[] = JSON.parse(JSON.stringify(teams));
 
-    const divisions: string[] = Array.from(new Set(teams.map(team => team.division)))
+    // const divisions: string[] = Array.from(new Set(teams.map(team => team.division)))
 
-    const divisionsTeams: TeamsType[][] = divisions.map(division => {
-        return copyTeams.filter(team => team.division === division);
-    });
+    const divisionsWithTeams = Array.from(new Set(teams.map(team => team.division)))
+        .map(division => ({
+            division,
+            teams: teams.filter(team => team.division === division)
+        }));
 
-    console.log(divisionsTeams)
+    console.log(divisionsWithTeams)
 
-    return <div>
-        {divisionsTeams.map((t) => <Team team={t} />)}
-    </div>
+    return (
+        <div className={styles.container}>
+
+            {divisionsWithTeams.map((div) => {
+                const {teams, division} = div
+                return (<div>
+                    <p className={styles.division__name}>{division}</p>
+
+                    <div>
+                        {teams.map(t => {
+                            return (
+                                <div className={styles.team__container}>
+                                    <div className={styles.team__logo}></div>
+                                    {/*<img src="" alt=""/>*/}
+                                    {/*<p>{t.logo}</p>*/}
+                                    <p className={styles.team__name}>{t.name}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>)
+            })}
+        </div>
+    )
 }

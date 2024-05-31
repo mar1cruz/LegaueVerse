@@ -1,0 +1,20 @@
+.row {
+  height: 40px;
+  border-bottom: 1px solid #dadce0;
+}
+
+
+.command {
+  padding-left: 16px;
+  width: calc(100% - 75px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info {
+  text-align: center;
+  width: 25px;
+  min-width: 25px;
+  padding: 0 3px;
+}

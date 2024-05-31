@@ -3,6 +3,8 @@ import App from "../App";
 import {Main} from "../components/Main/Main";
 import {Discipline} from "../pages/discipline/Discipline";
 import {Teams} from "../ui/teams/Teams";
+import {Score} from "../ui/score/Score";
+import {Standings} from "../ui/standings/Standings";
 
 export const router = createBrowserRouter([
     {
@@ -10,7 +12,6 @@ export const router = createBrowserRouter([
         element: <App/>,
         children: [
             {
-                index: true,
                 path: '/',
                 element: <Main/>
             },
@@ -20,11 +21,11 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         path: 'score',
-                        element: <div>score</div>
+                        element: <Score/>
                     },
                     {
                         path: 'standings',
-                        element: <div>standings</div>
+                        element: <Standings/>
                     },
                     {
                         path: 'schedule',
