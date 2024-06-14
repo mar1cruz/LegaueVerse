@@ -1,39 +1,45 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getStandingsAC, TeamStats} from "../../store/standings-reducer";
-import {AppStoreType} from "../../store/store";
+import {store, useAppDispatch, useAppSelector} from "../../store/store";
 import HeaderTable from "./headerTable/HeaderTable";
 import styles from "./Standings.module.scss";
 import {TeamStandings} from "./teamStandings/TeamStandings";
+import {setStandingsAC, StandingsType} from "../../store/leagues-reducer";
+import {useParams} from "react-router-dom";
+import {log} from "node:util";
 
-const conference = [
-    {title: 'Eastern conference', teams: 'Eastern'},
-    {title: 'Western conference', teams: 'Western'}
-]
+type myParams = {
+    discipline: string
+}
 
 export const Standings = () => {
-    const dispatch = useDispatch();
-    const eastern = useSelector<AppStoreType, TeamStats[]>(state => state.standings.Eastern);
-    const western = useSelector<AppStoreType, TeamStats[]>(state => state.standings.Western);
+    const {discipline} = useParams<keyof myParams>() as myParams
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getStandingsAC())
+        dispatch(setStandingsAC(discipline.toUpperCase()))
     }, [])
 
-    const getTeams = (conference: string) => {
-        if (conference === 'Eastern') return eastern;
-        return western
-    }
+    const standings = useAppSelector<StandingsType | undefined>(state =>
+        state.disciplines.find(st => st.name.toUpperCase() === discipline.toUpperCase())?.standings
+    );
+
+    if (!standings) return <div>No content...</div>;
+
 
     return (
         <div>
-            {conference.map((conf, i) => <table className={styles.table}>
-                <HeaderTable title={conf.title}/>
-                <TeamStandings teams={getTeams(conf.teams)}/>
-            </table>)}
+            {Object.keys(standings).map(conf => {
+                return (
+                    <table className={styles.table}>
+                        <HeaderTable title={`${conf} conference`}/>
+                        <TeamStandings teams={standings[conf]}/>
+
+                    </table>)
+            })}
 
         </div>
 
     );
 };
+
 

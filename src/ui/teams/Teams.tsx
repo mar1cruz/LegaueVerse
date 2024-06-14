@@ -20,16 +20,13 @@ export const Teams = () => {
 
     if (!teams.length) return <div>Loading...</div>;
 
-
-    // const divisions: string[] = Array.from(new Set(teams.map(team => team.division)))
-
     const divisionsWithTeams = Array.from(new Set(teams.map(team => team.division)))
         .map(division => ({
             division,
             teams: teams.filter(team => team.division === division)
         }));
 
-    console.log(divisionsWithTeams)
+    // console.log(divisionsWithTeams)
 
     return (
         <div className={styles.container}>

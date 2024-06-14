@@ -1,15 +1,14 @@
 import React from 'react';
 import styles from './Header.module.scss'
-import {Link, NavLink, useParams} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import {Button} from "../../ui/button/Button";
-import {useSelector} from "react-redux";
-import {AppStoreType} from "../../store/store";
+import {useAppSelector} from "../../store/store";
 
 const LinkPage = ['SCORE', 'STANDINGS', 'SCHEDULE', 'TEAMS', 'PLAYOFF']
 
 export const Header = () => {
     const {discipline} = useParams()
-    const image = useSelector<AppStoreType, string>((state) => state.disciplines.find(c => c.name.toLowerCase() === discipline)!.imageLogo)
+    const image = useAppSelector<string>((state) => state.disciplines.find(c => c.name.toLowerCase() === discipline)!.imageLogo)
 
     // console.log(discipline)
 
