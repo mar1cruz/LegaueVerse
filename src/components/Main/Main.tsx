@@ -1,29 +1,35 @@
-import st from './Main.module.scss'
+import styles from './Main.module.scss'
 import {useSelector} from "react-redux";
-import {AppStoreType} from "../../store/store";
-import {LeaguesType} from "../../store/leagues-reducer";
-import {DisciplineCard} from "../../ui/disciplineCard/disciplineCard";
+import {AppStoreType, useAppDispatch} from "../../store/store";
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
-import axios from "axios";
+import {DisciplineCard} from "../../pages/DisciplineCard/disciplineCard";
+import {disciplinesThunks} from "../../store/disciplinesSlice";
+import {Disciplines} from "../../store/types";
 
 export const Main = () => {
-    const disciplines = useSelector<AppStoreType, LeaguesType[]>((state) => state.disciplines)
-    //
-    // useEffect(() => {
-    //     axios.get('nba/teams').then(res => console.log(res.data))
-    //         .catch(err => console.log(err));
-    // }, []);
+    const disciplines = useSelector<AppStoreType, Disciplines[]>((state) => state.disciplines)
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(disciplinesThunks.getDisciplines())
+    }, [dispatch]);
 
     return (
-        <div className={st.main}>
-            {disciplines.map((discipline, index) => <Link to={`/${discipline.url}`} key={index}>
-                <DisciplineCard name={discipline.name}
-                                image={discipline.image}
-                                imageLogo={discipline.imageLogo}
-                                links={discipline.links}
-                />
-            </Link>)}
+        <div className={styles.main}>
+            {disciplines.map((discipline) => {
+                const url = discipline.name.toLowerCase()
+
+                return <div key={discipline.id} className={styles.league__wrapper}>
+                    <Link to={`/${url}/scores`} className={styles.league__link}></Link>
+                    
+                    <DisciplineCard name={discipline.name}
+                                    image={discipline.image}
+                                    imageLogo={discipline.logo}
+                    />
+                </div>
+            })}
         </div>
     );
 };

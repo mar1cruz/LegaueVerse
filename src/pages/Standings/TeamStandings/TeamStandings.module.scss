@@ -1,0 +1,54 @@
+.command {
+  position: relative;
+  width: calc(100% - 75px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wrapperCommand {
+  display: flex;
+  padding-left: 30px;
+  align-items: center;
+}
+
+.index {
+  position: absolute;
+  left: 0;
+  font-size: 16px;
+  color: #949494;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 12px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+  }
+}
+
+td {
+  font-size: 20px;
+  width: 70px;
+  padding: 0 3px;
+  text-align: center;
+}
+
+.commandRow {
+  transition: background-color .3s ease;
+  height: 30px;
+}
+
+.commandRow:hover {
+  background-color: #e4e4e4;
+  user-select: none;
+}
+
+.team__name {
+  font-size: 20px;
+}

@@ -1,19 +1,18 @@
-import {combineReducers, legacy_createStore} from "redux";
-import {disciplineReducer} from "./leagues-reducer";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {disciplinesReducer} from './disciplinesSlice';
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {configureStore} from "@reduxjs/toolkit";
+import {leagueReducer} from "./leagueSlice";
 
-const rootReducer = combineReducers({
-    disciplines: disciplineReducer,
-})
+export const store = configureStore({
+    reducer: {
+        disciplines: disciplinesReducer,
+        league: leagueReducer
+    },
+});
 
-export const store = legacy_createStore(rootReducer)
-
-export type AppStoreType = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
+export type AppStoreType = ReturnType<typeof store.getState>;
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
-
 export const useAppSelector: TypedUseSelectorHook<AppStoreType> = useSelector;
 
-// @ts-ignore
-window.store = store;

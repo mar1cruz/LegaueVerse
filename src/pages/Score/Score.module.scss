@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  margin-top: 100px;
+  gap: 20px;
+}
+
+.score__body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card__body {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+  border: #e5e5e5 1px solid;
+  border-radius: 5px;
+  transition: transform .2s ease-in-out, border .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+    border: #969696 1px solid;
+  }
+}
+
+.card__team {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .card__logo {
+    width: 40px;
+    height: 40px;
+    display: block;
+  }
+
+  .card__team__name {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 20px;
+  }
+}
+
+.home__team {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+
+.title {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 700
+}
+
+.card__points {
+  max-width: 300px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .score {
+    font-size: 40px;
+    font-weight: 500;
+  }
+
+  .final {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #949494
+  }
+}
+
+.looser {
+  color: #949494;
+}
