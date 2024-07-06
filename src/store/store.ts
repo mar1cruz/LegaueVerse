@@ -2,11 +2,13 @@ import {disciplinesReducer} from './disciplinesSlice';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {configureStore} from "@reduxjs/toolkit";
 import {leagueReducer} from "./leagueSlice";
+import {authReducer} from "../features/auth/authSlice";
 
 export const store = configureStore({
     reducer: {
         disciplines: disciplinesReducer,
-        league: leagueReducer
+        league: leagueReducer,
+        auth: authReducer
     },
 });
 

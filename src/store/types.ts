@@ -104,6 +104,30 @@ export interface MatchesAPIType {
     slug: string;
 }
 
+//
+// export type Schedule = MatchesAPIType & {
+//     time: "8:00 PM",
+//     arena: "",
+//     type: "Playoff"
+// }
+
+export type Schedule = {
+    date: string
+    games: {
+        id: number;
+        date: string;
+        visitor_team: Team;
+        visitor_pts: number;
+        home_team: Team;
+        home_pts: number;
+        slug: string;
+        time: string,
+        arena: string,
+        type: string
+    }[]
+}
+
+
 export interface CommandStats {
     team: string;
     value: number;
@@ -116,6 +140,7 @@ export interface StatsType {
 export type Leagues = Disciplines & {
     teams: TeamType[];
     standings: StandingsType;
+    schedule: Schedule[]
     matchesDates: string[];
     matchesOfDay: MatchesAPIType[];
     boxScore: BoxScoreApi;

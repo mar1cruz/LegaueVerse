@@ -1,15 +1,10 @@
-import axios from "axios";
-
-const instance = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/v1/',
-})
+import {instance} from "./instance";
 
 export const leaguesApi = {
     getDisciplines: () => {
         return instance.get('/');
     },
     getLeague: (leagueName: string) => {
-        console.log(instance.getUri({url: `/${leagueName}/`}))
         return instance.get(`/${leagueName}/`);
     },
     getScore: (leagueName: string, date: string) => {
@@ -29,9 +24,12 @@ export const leaguesApi = {
         return instance.get(`/${leagueName}/games-date/`);
     },
     getBoxScore: (leagueName: string, slug: string) => {
-        return instance.get(`/${leagueName}/${slug}/`);
+        return instance.get(`/${leagueName}/scores/${slug}/`);
     },
     getStats: (leagueName: string) => {
         return instance.get(`/${leagueName}/stats/`);
+    },
+    getSchedule: (leagueName: string) => {
+        return instance.get(`/${leagueName}/schedule/`);
     }
 }

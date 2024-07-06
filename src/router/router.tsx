@@ -8,6 +8,8 @@ import {Standings} from "../pages/Standings/Standings";
 import {Teams} from "../pages/Teams/Teams";
 import {BoxScore} from "../pages/BoxScore/BoxScore";
 import Stats from "../pages/Stats/Stats";
+import {Register} from "../features/auth/register/Register";
+import Schedule from "../pages/Shedule/Schedule";
 
 export const router = createBrowserRouter([
     {
@@ -36,7 +38,7 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "schedule",
-                        element: <div>schedule</div>,
+                        element: <Schedule/>
                     },
                     {
                         path: "teams",
@@ -54,5 +56,10 @@ export const router = createBrowserRouter([
         path: "/login",
         index: true,
         element: <Login/>,
+    },
+    {
+        path: "/register",
+        index: true,
+        element: <Register/>,
     },
 ]);

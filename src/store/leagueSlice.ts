@@ -1,8 +1,17 @@
-import {createAppAsyncThunk} from "../utils/createAppAsyncThunk";
+import {createAppAsyncThunk} from "../hooks/createAppAsyncThunk";
 import {createSlice} from "@reduxjs/toolkit";
-import {BoxScoreApi, LeagueResponse, Leagues, MatchesAPIType, StandingsType, StatsType, TeamType} from "./types";
-import {leaguesApi} from "../api/api";
-import {boxScoreApi, daysAPI, getDisciplinesApi, scoreApi, standingsAPI, statsApi, teamsAPI} from "../api/variebles";
+import {
+    BoxScoreApi,
+    LeagueResponse,
+    Leagues,
+    MatchesAPIType,
+    Schedule,
+    StandingsType,
+    StatsType,
+    TeamType
+} from "./types";
+import {leaguesApi} from "../api/league";
+import {getDisciplinesApi} from "../api/variebles";
 import nhl from "../assets/Main/nhl-header.jpg";
 import nba from "../assets/Main/basketball-header.jpg";
 
@@ -19,6 +28,7 @@ const slice = createSlice({
         image: nhl,
         logo: '',
         standings: {},
+        schedule: [],
         matchesDates: [],
         matchesOfDay: [],
         teams: [],
@@ -51,18 +61,19 @@ const slice = createSlice({
             .addCase(getStats.fulfilled, (state, action) => {
                 state.stats = action.payload.stats
             })
+            .addCase(getSchedule.fulfilled, (state, action) => {
+                state.schedule = action.payload.schedule
+            })
     },
 });
 
-export const getLeague = createAppAsyncThunk<LeagueResponse, { leagueName: string }>(`${slice.name}/getLeague`, async (arg, thunkAPI) => {
+export const getLeague = createAppAsyncThunk<LeagueResponse, {
+    leagueName: string
+}>(`${slice.name}/getLeague`, async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
 
     try {
         const response = await leaguesApi.getLeague(arg.leagueName)
-
-        const league = getDisciplinesApi.find((d) => d.name.toLowerCase() === arg.leagueName);
-
-        if (!league) return rejectWithValue(null);
 
         return response.data;
 
@@ -71,7 +82,10 @@ export const getLeague = createAppAsyncThunk<LeagueResponse, { leagueName: strin
     }
 });
 
-export const getScore = createAppAsyncThunk<{ score: MatchesAPIType[] }, { leagueName: string,date:string}>(`${slice.name}/getScore`, async (arg, thunkAPI) => {
+export const getScore = createAppAsyncThunk<{ score: MatchesAPIType[] }, {
+    leagueName: string,
+    date: string
+}>(`${slice.name}/getScore`, async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
 
     try {
@@ -83,7 +97,9 @@ export const getScore = createAppAsyncThunk<{ score: MatchesAPIType[] }, { leagu
     }
 });
 
-export const getStandings = createAppAsyncThunk<{ standings: StandingsType }, { leagueName: string }>(`${slice.name}/getStandings`, async (arg, thunkAPI) => {
+export const getStandings = createAppAsyncThunk<{ standings: StandingsType }, {
+    leagueName: string
+}>(`${slice.name}/getStandings`, async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
 
     try {
@@ -95,7 +111,9 @@ export const getStandings = createAppAsyncThunk<{ standings: StandingsType }, { 
     }
 })
 
-export const getTeams = createAppAsyncThunk<{ teams: TeamType[] }, { leagueName: string }>(`${slice.name}/getTeams`, async (arg, thunkAPI) => {
+export const getTeams = createAppAsyncThunk<{ teams: TeamType[] }, {
+    leagueName: string
+}>(`${slice.name}/getTeams`, async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
 
     try {
@@ -107,7 +125,9 @@ export const getTeams = createAppAsyncThunk<{ teams: TeamType[] }, { leagueName:
     }
 })
 
-export const getMatchesDates = createAppAsyncThunk<{ matches: string[] }, { leagueName: string }>(`${slice.name}/getMatchesDates`, async (arg, thunkAPI) => {
+export const getMatchesDates = createAppAsyncThunk<{ matches: string[] }, {
+    leagueName: string
+}>(`${slice.name}/getMatchesDates`, async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
 
     try {
@@ -119,7 +139,10 @@ export const getMatchesDates = createAppAsyncThunk<{ matches: string[] }, { leag
     }
 })
 
-export const getBoxScore = createAppAsyncThunk<{ boxScore: BoxScoreApi }, { leagueName: string, slug: string }>(`${slice.name}/getBoxScore`, async (arg, thunkAPI) => {
+export const getBoxScore = createAppAsyncThunk<{ boxScore: BoxScoreApi }, {
+    leagueName: string,
+    slug: string
+}>(`${slice.name}/getBoxScore`, async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
 
     try {
@@ -131,7 +154,9 @@ export const getBoxScore = createAppAsyncThunk<{ boxScore: BoxScoreApi }, { leag
     }
 })
 
-export const getStats = createAppAsyncThunk<{ stats: StatsType }, { leagueName: string}>(`${slice.name}/getStats`, async (arg, thunkAPI) => {
+export const getStats = createAppAsyncThunk<{ stats: StatsType }, {
+    leagueName: string
+}>(`${slice.name}/getStats`, async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
 
     try {
@@ -143,7 +168,29 @@ export const getStats = createAppAsyncThunk<{ stats: StatsType }, { leagueName: 
     }
 })
 
+export const getSchedule = createAppAsyncThunk<{ schedule: Schedule[] }, {
+    leagueName: string
+}>(`${slice.name}/getSchedule`, async (arg, thunkAPI) => {
+    const {rejectWithValue} = thunkAPI;
+
+    try {
+        const response = await leaguesApi.getSchedule(arg.leagueName);
+
+        return {schedule: response.data};
+    } catch (error) {
+        return rejectWithValue(null);
+    }
+})
 
 
 export const leagueReducer = slice.reducer;
-export const leagueThunks = {getLeague, getScore, getStandings, getTeams, getMatchesDates, getBoxScore,getStats};
+export const leagueThunks = {
+    getLeague,
+    getScore,
+    getStandings,
+    getTeams,
+    getMatchesDates,
+    getBoxScore,
+    getStats,
+    getSchedule
+};

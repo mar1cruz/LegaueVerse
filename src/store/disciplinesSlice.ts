@@ -3,8 +3,8 @@ import nhl from './../assets/Main/nhl-header.jpg'
 
 import {createSlice} from "@reduxjs/toolkit";
 import {Disciplines, DisciplineResponse} from "./types";
-import {createAppAsyncThunk} from "../utils/createAppAsyncThunk";
-import {leaguesApi} from "../api/api";
+import {createAppAsyncThunk} from "../hooks/createAppAsyncThunk";
+import {leaguesApi} from "../api/league";
 import {getDisciplinesApi} from "../api/variebles";
 
 
@@ -32,9 +32,6 @@ export const getDisciplines = createAppAsyncThunk<{
 
     try {
         const response = await leaguesApi.getDisciplines()
-
-        // return {leagues: response.data}
-
 
         return {disciplines: response.data}
 

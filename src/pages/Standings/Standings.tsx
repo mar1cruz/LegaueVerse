@@ -28,6 +28,8 @@ export const Standings = () => {
 
     const header = generateHeaderStandings(discipline)
 
+    // console.log('STANDINGS')
+
     return (
         <>
             <div className={styles.btn_wrapper}>

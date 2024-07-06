@@ -1,38 +1,53 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Calendar} from "../../components/Calendar/Calendar";
-import {useNavigate, useParams} from "react-router-dom";
-import {useAppSelector} from "../../store/store";
-import styles from './Score.module.scss'
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import styles from './Score.module.scss';
 import {MatchesAPIType} from "../../store/types";
-
+import {leagueThunks} from "../../store/leagueSlice";
+import TeamName from "../../components/TeamName/TeamName";
 
 export const Score = () => {
-    const {discipline} = useParams<{ discipline: string | undefined }>()
-    const matches = useAppSelector<MatchesAPIType[]>(state => state.league.matchesOfDay)
+    const matches = useAppSelector<MatchesAPIType[]>(state => state.league.matchesOfDay);
+    const dates = useAppSelector<string[]>(state => state.league.matchesDates);
+
+    const {discipline} = useParams<{ discipline: string | undefined }>();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
+    useEffect(() => {
+        if (discipline) {
+            dispatch(leagueThunks.getMatchesDates({leagueName: discipline}));
+        }
+    }, [dispatch, discipline]);
 
-    const date = matches[0]?.date
-        ? new Date(matches[0]?.date).toLocaleDateString("en-US", {month: "short", day: "numeric",})
-        : new Date().toLocaleDateString("en-US", {month: "short", day: "numeric",})
+    // console.log(searchParams.has("date"))
 
+    useEffect(() => {
+        if (discipline && dates.length > 0 && !searchParams.has("date")) {
+            dispatch(leagueThunks.getScore({leagueName: discipline, date: dates[0]}));
+        }
+    }, [searchParams, dates, discipline, dispatch]);
 
     const handleNavigate = (slug: string) => {
-        navigate(`/${discipline}/scores/${slug}`)
-    }
+        navigate(`/${discipline}/scores/${slug}/`);
+    };
+
+    const date = matches.length === 0
+        ? new Date(dates[0]).toLocaleDateString("en-US", {month: "short", day: "numeric"})
+        : new Date(matches[0]?.date).toLocaleDateString("en-US", {month: "short", day: "numeric"});
+
+    // console.log('SCORE')
 
     return (
         <>
-            <Calendar leagueName={discipline}/>
+            <Calendar leagueName={discipline} dates={dates}/>
 
             <div className={styles.container}>
                 <p className={styles.title}>{date}</p>
                 <div className={styles.score__body}>
-                    {matches.length === 0 && <div>No matches today</div>}
-                    {matches?.map(m => {
-                        const [visitorFirstName, visitorLastName] = m.visitor_team.name.split(" ");
-                        const [homeFirstName, homeLastName] = m.home_team.name.split(" ");
-
+                    {matches.map(m => {
                         const visitorClass = m.visitor_pts < m.home_pts ? styles.looser : '';
                         const homeClass = m.home_pts < m.visitor_pts ? styles.looser : '';
 
@@ -41,8 +56,7 @@ export const Score = () => {
                                 <div className={styles.card__team}>
                                     <img className={styles.card__logo} src={m.visitor_team.team_logo} alt="logo"/>
                                     <p className={`${styles.card__team__name} ${visitorClass}`}>
-                                        <span>{visitorFirstName}</span>
-                                        <span>{visitorLastName}</span>
+                                        <TeamName name={m.visitor_team.name}/>
                                     </p>
                                 </div>
 
@@ -54,8 +68,7 @@ export const Score = () => {
 
                                 <div className={`${styles.card__team} ${styles.home__team}`}>
                                     <p className={`${styles.card__team__name} ${homeClass}`}>
-                                        <span>{homeFirstName}</span>
-                                        <span>{homeLastName}</span>
+                                        <TeamName name={m.home_team.name}/>
                                     </p>
                                     <img className={styles.card__logo} src={m.home_team.team_logo} alt="logo"/>
                                 </div>
@@ -64,6 +77,6 @@ export const Score = () => {
                     })}
                 </div>
             </div>
-        </>);
+        </>
+    );
 };
-

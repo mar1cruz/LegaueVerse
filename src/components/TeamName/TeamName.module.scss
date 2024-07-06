@@ -1,0 +1,16 @@
+.title {
+  display: flex;
+  flex-direction: column;
+}
+
+.boxScore__title {
+  gap: 5px;
+  line-height: 1;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.schedule__team_name {
+  font-size: 18px;
+  font-weight: 500;
+}

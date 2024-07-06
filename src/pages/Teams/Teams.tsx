@@ -28,6 +28,7 @@ export const Teams = () => {
         return acc;
     }, {} as Record<string, TeamType[]>);
 
+    // console.log('TEAMS')
     return (
         <div className={styles.container}>
             {Object.entries(divisionsWithTeams).map(([division, teams]) => (

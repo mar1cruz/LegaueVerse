@@ -7,13 +7,16 @@ import {getLeague} from "../../store/leagueSlice";
 
 export const Discipline = () => {
     const {discipline} = useParams<{ discipline: string | undefined }>()
+
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
+
+    // console.log(discipline)
 
     useEffect(() => {
         if (discipline) {
             dispatch(getLeague({leagueName: discipline}))
-            navigate(`/${discipline}/scores`)
+            // navigate(`/${discipline}/scores`)
         }
     }, [dispatch, discipline, navigate]);
 

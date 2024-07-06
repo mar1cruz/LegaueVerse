@@ -9,7 +9,6 @@ import {Disciplines} from "../../store/types";
 
 export const Main = () => {
     const disciplines = useSelector<AppStoreType, Disciplines[]>((state) => state.disciplines)
-
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -18,18 +17,11 @@ export const Main = () => {
 
     return (
         <div className={styles.main}>
-            {disciplines.map((discipline) => {
-                const url = discipline.name.toLowerCase()
-
-                return <div key={discipline.id} className={styles.league__wrapper}>
-                    <Link to={`/${url}/scores`} className={styles.league__link}></Link>
-                    
-                    <DisciplineCard name={discipline.name}
-                                    image={discipline.image}
-                                    imageLogo={discipline.logo}
-                    />
+            {disciplines.map((discipline) => <div key={discipline.id} className={styles.league__wrapper}>
+                    <Link to={`/${discipline.name}/scores`} className={styles.league__link}></Link>
+                    <DisciplineCard discipline={discipline}/>
                 </div>
-            })}
+            )}
         </div>
     );
 };
