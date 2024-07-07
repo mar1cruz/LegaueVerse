@@ -15,41 +15,6 @@
   align-items: flex-start;
 }
 
-.stats__team {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
 
 
-.team__logo {
-  width: 40px;
-  height: 40px;
-  background: black;
-  border-radius: 50%;
-}
 
-.stats__stats_container {
-  width: 650px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.stats__team_score {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 30px;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.stats__field_goals {
-  display: flex;
-  flex-direction: column;
-}
-
-.stats__points {
-  font-size: 20px;
-  font-weight: 500;
-}

@@ -7,7 +7,7 @@ import {
     MatchesAPIType,
     Schedule,
     StandingsType,
-    StatsType,
+    StatsType, Team,
     TeamType
 } from "./types";
 import {leaguesApi} from "../api/league";
@@ -111,7 +111,7 @@ export const getStandings = createAppAsyncThunk<{ standings: StandingsType }, {
     }
 })
 
-export const getTeams = createAppAsyncThunk<{ teams: TeamType[] }, {
+export const getTeams = createAppAsyncThunk<{ teams: Team[] }, {
     leagueName: string
 }>(`${slice.name}/getTeams`, async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;

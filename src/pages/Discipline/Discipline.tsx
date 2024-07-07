@@ -11,8 +11,6 @@ export const Discipline = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
 
-    // console.log(discipline)
-
     useEffect(() => {
         if (discipline) {
             dispatch(getLeague({leagueName: discipline}))

@@ -1,0 +1,12 @@
+.stats__team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team__logo {
+    width: 40px;
+    height: 40px;
+    background: black;
+    border-radius: 50%;
+}

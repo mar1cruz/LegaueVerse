@@ -32,26 +32,6 @@ export type Disciplines = {
     image: string;
 };
 
-export type BoxScoreStats = {
-    id: number
-    field_goals: number
-    field_goal_attempts: number
-    field_goals_percentage: number
-    three_point_field_goals: number
-    three_point_field_goal_attempts: number
-    three_point_field_goals_percentage: number
-    free_throws: number
-    free_throw_attempts: number
-    free_throw_percentage: number
-    personal_fouls: number
-    total_rebounds: number
-    offensive_rebounds: number
-    turnovers: number
-    assists: number
-    steals: number
-    blocks: number
-};
-
 export type BoxScoreApi = {
     date: string;
     visitor_team: Team;
@@ -62,17 +42,18 @@ export type BoxScoreApi = {
     status: string;
     arena: string;
     type: string;
-    box_score: {
-        id: number;
-        home_team_stats: BoxScoreStats;
-        visitor_team_stats: BoxScoreStats;
-    };
+    box_score: box_score[]
 };
+
+export type box_score = {
+    name: string;
+    visitor_value: number | number[];
+    home_value: number | number[];
+}
 
 export interface StandingsType {
     [conference: string]: NbaTeamStats[] | NhlTeamStats[];
 }
-
 
 export interface NbaTeamStats {
     team: Team;
@@ -104,13 +85,6 @@ export interface MatchesAPIType {
     slug: string;
 }
 
-//
-// export type Schedule = MatchesAPIType & {
-//     time: "8:00 PM",
-//     arena: "",
-//     type: "Playoff"
-// }
-
 export type Schedule = {
     date: string
     games: {
@@ -127,7 +101,6 @@ export type Schedule = {
     }[]
 }
 
-
 export interface CommandStats {
     team: string;
     value: number;
@@ -138,7 +111,7 @@ export interface StatsType {
 }
 
 export type Leagues = Disciplines & {
-    teams: TeamType[];
+    teams: Team[];
     standings: StandingsType;
     schedule: Schedule[]
     matchesDates: string[];

@@ -3,8 +3,7 @@ import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import styles from './Teams.module.scss'
 import {leagueThunks} from "../../store/leagueSlice";
-import {TeamType} from "../../store/types";
-import {log} from "node:util";
+import {Team} from "../../store/types";
 
 export const Teams = () => {
     const {discipline} = useParams<{ discipline: string }>();
@@ -16,8 +15,9 @@ export const Teams = () => {
         }
     }, [discipline, dispatch]);
 
-    const teams = useAppSelector<TeamType[]>(state => state.league.teams)
+    const teams = useAppSelector<Team[]>(state => state.league.teams)
 
+    console.log(teams)
 
     const divisionsWithTeams = teams.reduce((acc, team) => {
         const division = team.division;
@@ -26,9 +26,9 @@ export const Teams = () => {
         }
         acc[division].push(team);
         return acc;
-    }, {} as Record<string, TeamType[]>);
+    }, {} as Record<string, Team[]>);
+    console.log(divisionsWithTeams)
 
-    // console.log('TEAMS')
     return (
         <div className={styles.container}>
             {Object.entries(divisionsWithTeams).map(([division, teams]) => (
@@ -37,7 +37,8 @@ export const Teams = () => {
                     <div>
                         {teams.map(t => (
                             <div key={t.id} className={styles.team__container}>
-                                <div className={styles.team__logo}></div>
+                                {/*<div className={styles.team__logo}></div>*/}
+                                <img className={styles.team__logo} src={t.team_logo} alt={t.team_logo}/>
                                 <p className={styles.team__name}>{t.name}</p>
                             </div>
                         ))}

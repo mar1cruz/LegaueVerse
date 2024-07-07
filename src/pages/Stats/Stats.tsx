@@ -18,7 +18,6 @@ const Stats = () => {
 
     const nominationTitles = Object.keys(stats);
 
-    // console.log('STATS')
     return (
         <div className={styles.stats__container}>
             <p className={styles.title}>Season Leaders</p>

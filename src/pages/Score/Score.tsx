@@ -22,8 +22,6 @@ export const Score = () => {
         }
     }, [dispatch, discipline]);
 
-    // console.log(searchParams.has("date"))
-
     useEffect(() => {
         if (discipline && dates.length > 0 && !searchParams.has("date")) {
             dispatch(leagueThunks.getScore({leagueName: discipline, date: dates[0]}));
@@ -37,8 +35,6 @@ export const Score = () => {
     const date = matches.length === 0
         ? new Date(dates[0]).toLocaleDateString("en-US", {month: "short", day: "numeric"})
         : new Date(matches[0]?.date).toLocaleDateString("en-US", {month: "short", day: "numeric"});
-
-    // console.log('SCORE')
 
     return (
         <>
