@@ -2,10 +2,10 @@ import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {useEffect} from "react";
 import {leagueThunks} from "../../store/leagueSlice";
-import {Team} from "../../store/types";
 import styles from "./BoxScore.module.scss";
 import {TeamInfo} from "./TeamInfo/TeamInfo";
 import {StatsContainer} from "./StatsContainer/StatsContainer";
+import {Team} from "../../api/types";
 
 export const BoxScore = () => {
     const {slug, discipline} = useParams<{ slug?: string, discipline?: string }>();
@@ -13,6 +13,7 @@ export const BoxScore = () => {
 
     const homeTeam = useAppSelector<Team>(state => state.league.boxScore.home_team);
     const visitorTeam = useAppSelector<Team>(state => state.league.boxScore.visitor_team);
+
 
     useEffect(() => {
         if (slug && discipline) {
@@ -24,7 +25,7 @@ export const BoxScore = () => {
         <div className={styles.score__container}>
             <p className={styles.score__title}>GAME STATS</p>
             <div className={styles.stats__container}>
-                <TeamInfo team={visitorTeam} />
+                <TeamInfo team={visitorTeam}/>
                 <StatsContainer/>
                 <TeamInfo team={homeTeam} direction='row-reverse' textAlign='right'/>
             </div>

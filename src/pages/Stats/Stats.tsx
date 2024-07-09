@@ -2,16 +2,16 @@ import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {leagueThunks} from "../../store/leagueSlice";
-import {StatsType} from "../../store/types";
 import styles from "./Stats.module.scss";
+import {StatsResponse} from "../../api/types";
 
 const Stats = () => {
     const {discipline} = useParams<{ discipline: string | undefined }>();
     const dispatch = useAppDispatch();
-    const stats = useAppSelector<StatsType>(state => state.league.stats);
+    const stats = useAppSelector<StatsResponse>(state => state.league.stats);
 
     useEffect(() => {
-        if (discipline) {
+        if (discipline && !Object.keys(discipline).length) {
             dispatch(leagueThunks.getStats({leagueName: discipline}));
         }
     }, [dispatch, discipline]);

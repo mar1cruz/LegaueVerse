@@ -1,8 +1,102 @@
+
+.card__body {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card__body_grid {
+  display: grid;
+  grid-template-areas:
+  'visitor score'
+  'home score';
+
+  .home__team {
+    grid-area: home;
+  }
+
+  .visitor__team {
+    grid-area: visitor;
+  }
+
+  .card__points_grid {
+    grid-area: score;
+
+    position: relative;
+    max-width: 300px;
+    width: fit-content;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      height: 1px;
+      width: 100px;
+      transform: rotate(90deg);
+      background-color: #949494;
+    }
+
+    .final {
+      left: 100px;
+    }
+
+    .score {
+      text-align: right;
+      font-size: 27px;
+    }
+  }
+}
+
+
+.card__points {
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .score {
+    font-size: 40px;
+  }
+
+  .final {
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+  }
+}
+
+
+.final {
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #949494
+}
+
+.score {
+  font-weight: 500;
+}
+
+.score__container {
+  margin-top: 80px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  margin-top: 100px;
   gap: 20px;
 }
 
@@ -12,12 +106,51 @@
   gap: 20px;
 }
 
-.card__body {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.score__body_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  padding: 0 0 60px 0;
+}
 
+.card__team {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .card__team__name {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 20px;
+  }
+}
+
+.card__team_grid {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+
+  .card__team__name {
+    display: flex;
+    font-size: 18px;
+    font-weight: 500;
+    gap: 5px;
+  }
+}
+
+.calendar__container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.border {
   cursor: pointer;
   border: #e5e5e5 1px solid;
   border-radius: 5px;
@@ -29,62 +162,25 @@
   }
 }
 
-.card__team {
-  max-width: 200px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-
-  .card__logo {
-    width: 40px;
-    height: 40px;
-    display: block;
-  }
-
-  .card__team__name {
-    display: flex;
-    flex-direction: column;
-    font-weight: 500;
-    font-size: 20px;
-  }
+.card__logo {
+  width: 40px;
+  height: 40px;
 }
 
-.home__team {
+.right__team {
   justify-content: flex-end;
   text-align: right;
 }
 
+.left__team {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
 
 .title {
   text-transform: uppercase;
   font-size: 20px;
   font-weight: 700
-}
-
-.card__points {
-  max-width: 300px;
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .score {
-    font-size: 40px;
-    font-weight: 500;
-  }
-
-  .final {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 500;
-    color: #949494
-  }
 }
 
 .looser {

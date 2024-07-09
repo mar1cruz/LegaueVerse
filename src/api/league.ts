@@ -1,35 +1,43 @@
 import {instance} from "./instance";
+import {
+    BoxScoreResponse,
+    DisciplineResponse, ScheduleResponse,
+    ScoresResponse,
+    StandingsResponse,
+    StatsResponse,
+    TeamResponse
+} from "./types";
 
 export const leaguesApi = {
     getDisciplines: () => {
-        return instance.get('/');
+        return instance.get<DisciplineResponse[]>('/');
     },
     getLeague: (leagueName: string) => {
-        return instance.get(`/${leagueName}/`);
+        return instance.get<DisciplineResponse>(`/${leagueName}/`);
     },
     getScore: (leagueName: string, date: string) => {
-        return instance.get(`/${leagueName}/scores/`, {
+        return instance.get<ScoresResponse[]>(`/${leagueName}/scores/`, {
             params: {
                 date: date
             }
         });
     },
     getStandings: (leagueName: string) => {
-        return instance.get(`/${leagueName}/standings/`);
+        return instance.get<StandingsResponse>(`/${leagueName}/standings/`);
     },
     getTeams: (leagueName: string) => {
-        return instance.get(`/${leagueName}/teams/`);
+        return instance.get<TeamResponse>(`/${leagueName}/teams/`);
     },
     getMatches: (leagueName: string) => {
-        return instance.get(`/${leagueName}/games-date/`);
+        return instance.get<string[]>(`/${leagueName}/games-date/`);
     },
     getBoxScore: (leagueName: string, slug: string) => {
-        return instance.get(`/${leagueName}/scores/${slug}/`);
+        return instance.get<BoxScoreResponse>(`/${leagueName}/scores/${slug}/`);
     },
     getStats: (leagueName: string) => {
-        return instance.get(`/${leagueName}/stats/`);
+        return instance.get<StatsResponse>(`/${leagueName}/stats/`);
     },
     getSchedule: (leagueName: string) => {
-        return instance.get(`/${leagueName}/schedule/`);
+        return instance.get<ScheduleResponse[]>(`/${leagueName}/schedule/`);
     }
 }

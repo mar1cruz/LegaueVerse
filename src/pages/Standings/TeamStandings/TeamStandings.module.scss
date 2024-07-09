@@ -28,7 +28,6 @@
   img {
     width: 40px;
     height: 40px;
-    object-fit: cover;
   }
 }
 
@@ -50,5 +49,10 @@ td {
 }
 
 .team__name {
+  padding-left: 25px;
   font-size: 20px;
+}
+
+tbody{
+  height: 50px;
 }

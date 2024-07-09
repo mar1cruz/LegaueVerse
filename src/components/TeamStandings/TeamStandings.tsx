@@ -13,7 +13,7 @@ export const TeamStandings = ({logo, name, index}: Props) => {
             <div className={styles.wrapperCommand}>
                 <span className={styles.index}>{index}</span>
                 <div className={styles.icon}>
-                    <img src={logo} alt={name + ' logo'}/>
+                    <img src={logo} alt='logo'/>
                 </div>
                 <span className={styles.team__name}>{name}</span>
             </div>

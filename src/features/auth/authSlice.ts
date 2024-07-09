@@ -14,7 +14,7 @@ const slice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.token = action.payload.access;
             })
-            .addCase(logOut.fulfilled, (state, action) => {
+            .addCase(logOut.fulfilled, (state) => {
                 state.token = ''
             })
     },
@@ -46,15 +46,19 @@ const register = createAppAsyncThunk<any, {
 
     try {
         const response = await authApi.register({email, password});
+
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            return rejectWithValue(error.response?.data.detail);
+            // console.log(error)
+            return rejectWithValue(error);
+        } else {
+            return rejectWithValue(null);
         }
     }
 });
 
-const logOut = createAppAsyncThunk<boolean, void>(`${slice.name}/logout`, async (arg, thunkAPI) => {
+const logOut = createAppAsyncThunk<boolean, void>(`${slice.name}/logout`, async () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(false);

@@ -1,0 +1,16 @@
+.coming__container {
+  width: 100%;
+  min-height: 289px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(93, 158, 199, 0.12);
+  border-radius: 10px;
+}
+
+.coming__text {
+  font-size: 25px;
+  font-weight: 600;
+}

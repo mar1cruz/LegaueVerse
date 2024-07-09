@@ -1,33 +1,24 @@
-import nba from './../assets/Main/basketball-header.jpg'
-import nhl from './../assets/Main/nhl-header.jpg'
-
 import {createSlice} from "@reduxjs/toolkit";
-import {Disciplines, DisciplineResponse} from "./types";
 import {createAppAsyncThunk} from "../hooks/createAppAsyncThunk";
 import {leaguesApi} from "../api/league";
-import {getDisciplinesApi} from "../api/variebles";
+import {DisciplineResponse} from "../api/types";
 
 
 const slice = createSlice({
     name: "disciplines",
-    initialState: [] as Disciplines[],
+    initialState: [] as DisciplineResponse[],
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getDisciplines.fulfilled, (state, action) => {
-                return action.payload.disciplines.map(d => {
-                    const image = d.name === "NHL" ? nhl : nba
-
-                    return {...d, image}
-                })
+                const comingSoon = {name: 'coming soon', id: -1, logo: '', background: ''}
+                return [...action.payload.disciplines, comingSoon]
             })
     }
 })
 
 
-export const getDisciplines = createAppAsyncThunk<{
-    disciplines: DisciplineResponse[]
-}, void>(`${slice.name}/getLeagues`, async (_, thunkAPI) => {
+export const getDisciplines = createAppAsyncThunk<{ disciplines: DisciplineResponse[] }, void>(`${slice.name}/getLeagues`, async (_, thunkAPI) => {
     const {rejectWithValue} = thunkAPI
 
     try {
@@ -41,7 +32,6 @@ export const getDisciplines = createAppAsyncThunk<{
 });
 
 export const disciplinesReducer = slice.reducer;
-export const disciplinesActions = slice.actions;
 export const disciplinesThunks = {getDisciplines};
 
 

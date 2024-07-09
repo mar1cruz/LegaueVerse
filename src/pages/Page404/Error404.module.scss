@@ -1,0 +1,25 @@
+.error__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-weight: 600;
+}
+
+.error__error_title {
+  font-size: 60px;
+}
+
+.error__error__text {
+  font-size: 40px;
+}
+
+.error__error__link {
+  font-size: 30px;
+  color: #346fd5;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

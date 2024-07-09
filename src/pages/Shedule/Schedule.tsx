@@ -3,18 +3,18 @@ import {useAppDispatch, useAppSelector} from "../../store/store";
 import {leagueThunks} from "../../store/leagueSlice";
 import {useParams} from "react-router-dom";
 import styles from './Schedule.module.scss';
-import {Schedule as ScheduleType, MatchesAPIType} from "../../store/types";
 import dayjs from "dayjs";
 import TeamName from "../../components/TeamName/TeamName";
+import {ScheduleResponse} from "../../api/types";
 
 const Schedule = () => {
     const {discipline} = useParams<{ discipline: string | undefined }>();
     const dispatch = useAppDispatch();
-    const schedule = useAppSelector<ScheduleType[]>(state => state.league.schedule);
+    const schedule = useAppSelector<ScheduleResponse[]>(state => state.league.schedule);
 
 
     useEffect(() => {
-        if (discipline) {
+        if (discipline && schedule.length === 0) {
             dispatch(leagueThunks.getSchedule({leagueName: discipline}));
         }
     }, [dispatch, discipline]);
@@ -35,13 +35,13 @@ const Schedule = () => {
                         <div key={idx} className={styles.schedule__info_container}>
                             <div className={styles.team__container}>
                                 <div className={styles.team}>
-                                    <img src={sc.visitor_team.team_logo} alt="Visitor Team Logo"/>
+                                    <img src={sc.visitor_team.team_logo} alt='logo'/>
                                     <p><TeamName name={sc.visitor_team.name} className='schedule__team_name'/></p>
                                 </div>
                                 <div className={styles.team__vs}>@</div>
                                 <div className={styles.team}>
                                     <p><TeamName name={sc.home_team.name} className='schedule__team_name'/></p>
-                                    <img src={sc.home_team.team_logo} alt="Home Team Logo"/>
+                                    <img src={sc.home_team.team_logo} alt='logo'/>
                                 </div>
                             </div>
                             <p className={styles.schedule__info_value}>{sc.type}</p>

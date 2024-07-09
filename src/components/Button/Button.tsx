@@ -1,5 +1,9 @@
 import styles from './Button.module.scss'
 
-export const Button = () => {
-    return <button className={styles.button}>FOLLOW</button>
+type Props = {
+    text: string
+}
+
+export const Button = ({text}: Props) => {
+    return <button className={styles.button}>{text}</button>
 }

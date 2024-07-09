@@ -1,8 +1,7 @@
 import React from "react";
 import {useFormik} from "formik";
-import {Button, FormControl, FormGroup, Grid, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import styles from "./Login.module.scss";
+import styles from "../Auth.module.scss";
 import {Link, Navigate} from "react-router-dom";
 import {authThunks} from "../authSlice";
 
@@ -50,40 +49,39 @@ export const Login = () => {
     }
 
     return (
-        <Grid container className={styles.form__container}>
-            <Grid item>
-                <p>Authorization</p>
-                <form onSubmit={formik.handleSubmit}>
-                    <FormControl>
-                        <FormGroup>
-                            <TextField label="Email" margin="normal" {...formik.getFieldProps("email")} />
-                            {formik.errors.email && formik.touched.email
-                                && <div style={{color: 'red'}}>{formik.errors.email}</div>}
+        <div className={styles.auth__container}>
+            <div>
+                <p className={styles.auth__title}>Authorization or <Link className={styles.auth__link} to={'/register'}>Register</Link></p>
+            </div>
+            <form className={styles.form} onSubmit={formik.handleSubmit}>
 
-                            <TextField type="password" label="Password"
-                                       margin="normal" {...formik.getFieldProps("password")} />
-                            {formik.errors.password && formik.touched.password
-                                && <div style={{color: 'red'}}>{formik.errors.password}</div>}
+                <label>
+                    <input {...formik.getFieldProps("email")}
+                           className={styles.field__email}
+                           type="email"
+                           placeholder="Email"/>
 
-                            <Button type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    disabled={formik.isSubmitting}>
-                                Login
-                            </Button>
+                    {formik.errors.email && formik.touched.email &&
+                        <div className={styles.error}>{formik.errors.email}</div>}
+                </label>
 
+                <label>
+                    <input {...formik.getFieldProps("password")}
+                           className={styles.field__password}
+                           type="password"
+                           placeholder="Password"/>
 
-                            <Link to={'/register'}>Register</Link>
+                    {formik.errors.password && formik.touched.password &&
+                        <div className={styles.error}>{formik.errors.password}</div>}
+                </label>
 
-                            {formik.errors.general && (
-                                <div style={{color: 'red', marginTop: '10px'}}>{formik.errors.general}</div>
-                            )}
+                <button className={styles.form__button} disabled={formik.isSubmitting}>Login</button>
 
-                        </FormGroup>
-                    </FormControl>
-                </form>
+                {formik.errors.general && (
+                    <div style={{color: 'red', marginTop: '10px'}}>{formik.errors.general}</div>
+                )}
 
-            </Grid>
-        </Grid>
+            </form>
+        </div>
     );
 };

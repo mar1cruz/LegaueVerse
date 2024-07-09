@@ -1,32 +1,33 @@
-import React, {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from "../../store/store";
-import {useParams} from "react-router-dom";
-import {leagueThunks} from "../../store/leagueSlice";
-import {NbaTeamStats, NhlTeamStats} from "../../store/types";
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useParams } from "react-router-dom";
+import { leagueThunks } from "../../store/leagueSlice";
 import styles from "./Standings.module.scss";
-import {HeaderTable} from "./HeaderTable/HeaderTable";
-import {generateHeaderStandings} from "../../utils/generateHeaderStandings";
-import {TeamStandings} from "./TeamStandings/TeamStandings";
-
+import { HeaderTable } from "./HeaderTable/HeaderTable";
+import { generateHeaderStandings } from "../../utils/generateHeaderStandings";
+import { TeamStandings } from "./TeamStandings/TeamStandings";
+import { NbaTeamStats, NhlTeamStats } from "../../api/types";
 
 export const Standings = () => {
-    const {discipline} = useParams<{ discipline: string | undefined }>()
-    const [filter, setFilter] = useState<'Eastern' | 'Western'>('Eastern')
-    const standings = useAppSelector<NbaTeamStats[] | NhlTeamStats[]>(state => state.league.standings[filter])
+    const { discipline } = useParams<{ discipline: string | undefined }>();
+    const [filter, setFilter] = useState<'Eastern' | 'Western'>('Eastern');
+
+    const standings = useAppSelector(state => state.league.standings);
+    const filteredStandings: NhlTeamStats[] | NbaTeamStats[] = standings[filter] || [];
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (discipline) {
-            dispatch(leagueThunks.getStandings({leagueName: discipline}))
+        if (discipline && !standings[filter]) {
+            dispatch(leagueThunks.getStandings({ leagueName: discipline }));
         }
-    }, [dispatch, discipline])
+    }, [dispatch, discipline, standings]);
 
     const getButtonClass = (conference: 'Eastern' | 'Western') => {
         return filter === conference ? styles.active : '';
     };
 
-    const header = generateHeaderStandings(discipline)
+    const header = generateHeaderStandings(discipline);
 
     return (
         <>
@@ -40,14 +41,9 @@ export const Standings = () => {
             </div>
 
             <table className={styles.table}>
-                <HeaderTable header={header}/>
-                {standings?.map((team, index) => <TeamStandings key={index} index={index} team={team}/>)}
+                <HeaderTable header={header} />
+                {filteredStandings.map((team, index) => <TeamStandings key={index} index={index} team={team} />)}
             </table>
         </>
-
     );
-
 };
-
-
-

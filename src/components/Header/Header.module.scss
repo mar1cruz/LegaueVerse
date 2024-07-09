@@ -1,17 +1,40 @@
-.header {
+.header__container {
+  margin-top: 20px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
 .header__body {
-  max-width: 300px;
-  width: 100%;
   display: flex;
   align-items: center;
   gap: 20px;
 
+  padding: 0 20px;
+}
 
-  background-color: #009def;
+.header__location {
+  text-align: right;
+  font-size: 14px;
+  color: #606060;
+}
+
+.location__siteName {
+  font-weight: 500;
+}
+
+.location__text {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.logo {
+  font-size: 40px;
+  font-weight: 800;
+
+  &:visited {
+    color: initial;
+  }
 }
 
 .navigate {
@@ -37,6 +60,20 @@
   width: 100%;
 }
 
-.logo {
-  height: 60px;
+.button__login {
+  max-width: 100px;
+  width: 100%;
+  text-align: center;
+  padding: 13px 20px;
+  background-color: #f1f1f1;
+  transition: background-color .2s ease-in-out;
+
+  &:visited {
+    color: initial;
+  }
+
+  &:hover {
+    background-color: #cccccc;
+
+  }
 }

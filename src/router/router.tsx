@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, Navigate} from "react-router-dom";
 import App from "../App";
 import {Main} from "../components/Main/Main";
 import {Discipline} from "../pages/Discipline/Discipline";
@@ -10,6 +10,7 @@ import {BoxScore} from "../pages/BoxScore/BoxScore";
 import Stats from "../pages/Stats/Stats";
 import {Register} from "../features/auth/register/Register";
 import Schedule from "../pages/Shedule/Schedule";
+import {Page404} from "../pages/Page404/Error404";
 
 export const router = createBrowserRouter([
     {
@@ -54,12 +55,18 @@ export const router = createBrowserRouter([
     },
     {
         path: "/login",
-        index: true,
         element: <Login/>,
     },
     {
         path: "/register",
-        index: true,
         element: <Register/>,
+    },
+    {
+        path: "*",
+        element: <Navigate to='/404'/>,
+    },
+    {
+        path: "/404",
+        element: <Page404/>,
     },
 ]);

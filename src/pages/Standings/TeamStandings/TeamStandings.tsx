@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './TeamStandings.module.scss';
-import {NbaTeamStats, NhlTeamStats} from "../../../store/types";
+import {NbaTeamStats, NhlTeamStats} from "../../../api/types";
 
 type Props = {
     team: NbaTeamStats | NhlTeamStats
