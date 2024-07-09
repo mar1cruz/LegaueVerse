@@ -50,7 +50,6 @@ const register = createAppAsyncThunk<any, {
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            // console.log(error)
             return rejectWithValue(error);
         } else {
             return rejectWithValue(null);

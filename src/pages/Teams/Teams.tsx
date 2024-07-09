@@ -12,7 +12,7 @@ export const Teams = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (discipline && !Object.keys(teams).length) {
+        if (discipline) {
             dispatch(leagueThunks.getTeams({leagueName: discipline}))
         }
     }, [discipline, dispatch]);

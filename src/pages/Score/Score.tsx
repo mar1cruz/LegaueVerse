@@ -19,7 +19,7 @@ export const Score = () => {
 
 
     useEffect(() => {
-        if (discipline && dates.length === 0) {
+        if (discipline) {
             dispatch(leagueThunks.getMatchesDates({leagueName: discipline}));
         }
     }, [dispatch, discipline]);
@@ -27,7 +27,7 @@ export const Score = () => {
     useEffect(() => {
         const dateToUse = searchParams.size ? searchParams.get('date') : dates[0];
 
-        if (discipline && dates.length > 0 && dateToUse && matches.length === 0) {
+        if (discipline && dates.length > 0 && dateToUse) {
             dispatch(leagueThunks.getScore({leagueName: discipline, date: dateToUse}));
         }
     }, [searchParams, dates, discipline, dispatch]);

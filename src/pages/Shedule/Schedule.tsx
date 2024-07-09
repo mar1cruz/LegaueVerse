@@ -14,7 +14,7 @@ const Schedule = () => {
 
 
     useEffect(() => {
-        if (discipline && schedule.length === 0) {
+        if (discipline) {
             dispatch(leagueThunks.getSchedule({leagueName: discipline}));
         }
     }, [dispatch, discipline]);

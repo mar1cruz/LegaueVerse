@@ -11,7 +11,7 @@ const Stats = () => {
     const stats = useAppSelector<StatsResponse>(state => state.league.stats);
 
     useEffect(() => {
-        if (discipline && !Object.keys(discipline).length) {
+        if (discipline) {
             dispatch(leagueThunks.getStats({leagueName: discipline}));
         }
     }, [dispatch, discipline]);

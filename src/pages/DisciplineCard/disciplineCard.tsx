@@ -11,8 +11,6 @@ const links = ['scores', 'standings', 'schedule', 'teams', 'stats'];
 export const DisciplineCard = ({discipline}: Props) => {
     const {name, background, logo} = discipline;
 
-    console.log(1)
-
     return (
         <div className={styles.body}>
             <div className={styles.header}>

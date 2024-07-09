@@ -18,7 +18,7 @@ export const Standings = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (discipline && !standings[filter]) {
+        if (discipline) {
             dispatch(leagueThunks.getStandings({ leagueName: discipline }));
         }
     }, [dispatch, discipline, standings]);
