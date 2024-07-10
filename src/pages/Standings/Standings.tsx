@@ -21,7 +21,7 @@ export const Standings = () => {
         if (discipline) {
             dispatch(leagueThunks.getStandings({ leagueName: discipline }));
         }
-    }, [dispatch, discipline, standings]);
+    }, [dispatch, discipline]);
 
     const getButtonClass = (conference: 'Eastern' | 'Western') => {
         return filter === conference ? styles.active : '';

@@ -3,7 +3,6 @@ import {createAppAsyncThunk} from "../hooks/createAppAsyncThunk";
 import {leaguesApi} from "../api/league";
 import {DisciplineResponse} from "../api/types";
 
-
 const slice = createSlice({
     name: "disciplines",
     initialState: [] as DisciplineResponse[],
@@ -16,7 +15,6 @@ const slice = createSlice({
             })
     }
 })
-
 
 export const getDisciplines = createAppAsyncThunk<{ disciplines: DisciplineResponse[] }, void>(`${slice.name}/getLeagues`, async (_, thunkAPI) => {
     const {rejectWithValue} = thunkAPI

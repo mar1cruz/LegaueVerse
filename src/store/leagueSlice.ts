@@ -20,18 +20,25 @@ import {useNavigate} from "react-router-dom";
 //     data?: Leagues
 // }
 
+const initialState = {
+    standings: {},
+    schedule: [],
+    matchesDates: [],
+    matchesOfDay: [],
+    teams: {},
+    boxScore: {} as BoxScoreResponse,
+    stats: {},
+} as InitialStore
+
+
 const slice = createSlice({
     name: "league",
-    initialState: {
-        standings: {},
-        schedule: [],
-        matchesDates: [],
-        matchesOfDay: [],
-        teams: {},
-        boxScore: {} as BoxScoreResponse,
-        stats: {},
-    } as InitialStore,
-    reducers: {},
+    initialState,
+    reducers: {
+        clearStore() {
+            return initialState;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getLeague.fulfilled, (state, action) => {
@@ -176,6 +183,7 @@ export const getSchedule = createAppAsyncThunk<{ schedule: ScheduleResponse[] },
 })
 
 export const leagueReducer = slice.reducer;
+export const leagueActions = slice.actions
 export const leagueThunks = {
     getLeague,
     getScore,

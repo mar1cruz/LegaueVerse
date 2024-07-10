@@ -3,6 +3,7 @@ import styles from './Header.module.scss'
 import {Link, NavLink, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {authThunks} from "../../features/auth/authSlice";
+import {leagueActions, leagueThunks} from "../../store/leagueSlice";
 
 const LinkPage = ['SCORES', 'STANDINGS', 'SCHEDULE', 'TEAMS', 'STATS']
 
@@ -15,10 +16,14 @@ export const Header = () => {
         dispatch(authThunks.logOut())
     }
 
+    const handlerClearStore = () => {
+        dispatch(leagueActions.clearStore())
+    }
+
     return (
         <div className={styles.header__container}>
             <div className={styles.header__body}>
-                <Link to='/' className={styles.logo}>LV</Link>
+                <Link to='/' onClick={handlerClearStore} className={styles.logo}>LV</Link>
                 <div className={styles.header__location}>
                     <p className={styles.location__siteName}>LeagueVerse</p>
                     <p className={styles.location__text}>{discipline}</p>
